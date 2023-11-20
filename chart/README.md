@@ -1,8 +1,12 @@
 # automatisch
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![AppVersion: 0.9.3](https://img.shields.io/badge/AppVersion-0.9.3-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![AppVersion: 0.9.3](https://img.shields.io/badge/AppVersion-0.9.3-informational?style=flat-square)
 
 A Helm chart for deploying Automatisch
+
+## Source Code
+
+* <https://github.com/CloudTooling/k8s-automatisch>
 
 ## Values
 
