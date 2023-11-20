@@ -3,7 +3,7 @@ description: A Helm chart for deploying Automatisch
 name: automatisch
 version: 0.2.0
 # renovate: datasource=docker depName=automatischio/automatisch
-appVersion: "0.9.3"
+appVersion: "0.10.0"
 annotations:
   artifacthub.io/links: |
     - name: Helm Chart
