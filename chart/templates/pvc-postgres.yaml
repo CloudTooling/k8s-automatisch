@@ -1,0 +1,14 @@
+{{- if .Values.postgres.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "ah.fullname" . }}-postgres
+  labels:
+    {{- include "ah.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+ {{- end }}

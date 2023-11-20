@@ -1,0 +1,12 @@
+apiVersion: v2
+description: A Helm chart for deploying Automatisch
+name: automatisch
+version: 0.2.0
+# renovate: datasource=docker depName=automatischio/automatisch
+appVersion: "0.9.3"
+annotations:
+  artifacthub.io/links: |
+    - name: Helm Chart
+      url: https://github.com/CloudTooling/k8s-automatisch
+    - name: Application
+      url: https://automatisch.io/

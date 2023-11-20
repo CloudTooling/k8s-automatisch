@@ -1,0 +1,81 @@
+{{- if .Values.postgres.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ah.fullname" . }}-postgres
+  labels:
+    {{- include "ah.postgresLabels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "ah.postgresSelectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "ah.postgresSelectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "ah.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "postgres:{{ .Values.postgres.version }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: POSTGRES_DB
+              value: {{ .Values.postgres.config.dbName }}
+            - name: POSTGRES_USER
+              value: {{ .Values.postgres.config.dbUser }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.postgres.config.dbPassword }}
+          ports:
+            - name: postgres-tcp
+              containerPort: 5432
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 5432
+            initialDelaySeconds: 15
+          readinessProbe:
+            exec:
+              command:
+                - CMD-SHELL
+                - pg_isready
+                - -U 
+                - ${POSTGRES_USER} 
+                - -d 
+                - ${POSTGRES_DB}
+            initialDelaySeconds: 5
+          resources:
+            {{- toYaml .Values.postgres.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql/data"
+              name: storage
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: {{ include "ah.fullname" . }}-postgres
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+ {{- end }}
