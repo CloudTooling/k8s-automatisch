@@ -15,6 +15,21 @@ postgres:
   enabled: true
   # renovate: datasource=docker depName=redis
   version: "14.5"
+  # @ignore, Configure pod security context
+  podSecurityContext:
+    runAsNonRoot: true
+    fsGroup: 999
+    fsGroupChangePolicy: "OnRootMismatch"
+  # @ignore, Configure security context
+  securityContext:
+    runAsUser: 999
+    runAsNonRoot: true
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: "RuntimeDefault"
   config:
     dbName: automatisch
     dbUser: automatischUser
@@ -59,6 +74,7 @@ podAnnotations: {}
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 1000
+  runAsGroup: 3000
   fsGroup: 2000
 # @ignore, Configure security context
 securityContext:
