@@ -34,9 +34,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: PORT=3000
-            - name: HOST=localhost
-            {{ include "ah.envValues" . | nindent 12 }}
+            - name: PORT
+              value: "3000"
+            - name: HOST
+              value: "localhost"
+            {{- include "ah.envValues" . | nindent 12 }}
           ports:
             - name: ah-tcp
               containerPort: 3000
@@ -63,8 +65,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: WORKER
-              value: true
-            {{ include "ah.envValues" . | nindent 12 }}
+              value: "true"
+            {{- include "ah.envValues" . | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

@@ -103,15 +103,15 @@ Create the name of the service account to use
 {{- define "ah.envValues" -}}
 {{- $fullname := include "ah.fullname" . }}
 {{- range $k, $v := .Values.app.config }}
-- name: "{{ $k }}"
-  value: "{{ $v }}"
+- name: {{ $k }}
+  value: {{ $v }}
 {{- end }}
 {{- range $k, $v := .Values.app.credentials }}
 - name: {{ $k }}
   valueFrom:
     secretKeyRef:
       name: "{{ $fullname }}"
-      key: "{{ include "ah.camelcase" "$v" }}"
+      key: {{ include "ah.camelcase" $k }}
 {{- end }}
 - name: REDIS_HOST
   value: "{{ $fullname }}-redis"
@@ -133,7 +133,6 @@ Create the name of the service account to use
       name: "{{ $fullname }}"
       key: dbPassword
 {{- end -}}
-
 {{- define "ah.camelcase" -}}
 {{- $string := camelcase (lower .) }}
 {{- $count := len $string }}
