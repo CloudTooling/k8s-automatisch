@@ -34,11 +34,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: POSTGRES_DB
-              value: {{ .Values.postgres.config.dbName }}
+              value: {{ .Values.postgres.config.dbName | quote }}
             - name: POSTGRES_USER
-              value: {{ .Values.postgres.config.dbUser }}
+              value: {{ .Values.postgres.config.dbUser | quote }}
             - name: POSTGRES_PASSWORD
-              value: {{ .Values.postgres.config.dbPassword }}
+              value: {{ .Values.postgres.config.dbPassword | quote }}
           ports:
             - name: postgres-tcp
               containerPort: 5432
