@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ah.fullname" . }}
+  labels:
+    {{- include "ah.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3000
+      targetPort: ah-tcp
+      protocol: TCP
+      name: app
+  selector:
+    {{- include "ah.selectorLabels" . | nindent 4 }}

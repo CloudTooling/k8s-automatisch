@@ -1,0 +1,14 @@
+{{- if .Values.redis.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "ah.fullname" . }}-redis
+  labels:
+    {{- include "ah.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+ {{- end }}
