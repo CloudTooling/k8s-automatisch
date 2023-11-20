@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled }}
-Application is available at: http{{ if $.Values.ingress.tls }}s{{ end }}://{{ include "chart.ingress.hostname" $ }}
+Application is available at: http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $.Values.ingress.hostname }}
 {{- else }}
 Get the application URL by running these commands:
   export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "ah.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
