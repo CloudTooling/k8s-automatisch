@@ -58,6 +58,12 @@ spec:
           volumeMounts:
             - mountPath: "/automatisch/storage"
               name: storage
+            - mountPath: "/home/node/.cache"
+              name: cache
+            - mountPath: "/tmp"
+              name: tmp
+            - mountPath: "/automatisch/logs"
+              name: logs
         - name: worker
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -72,10 +78,25 @@ spec:
           volumeMounts:
             - mountPath: "/automatisch/storage"
               name: storage
+            - mountPath: "/home/node/.cache"
+              name: cache
+            - mountPath: "/tmp"
+              name: tmp
+            - mountPath: "/automatisch/logs"
+              name: logs
       volumes:
         - name: storage
           persistentVolumeClaim:
             claimName: {{ include "ah.fullname" . }}
+        - name: cache
+          emptyDir:
+            sizeLimit: 100Mi
+        - name: tmp
+          emptyDir:
+            sizeLimit: 100Mi
+        - name: logs
+          emptyDir:
+            sizeLimit: 300Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
