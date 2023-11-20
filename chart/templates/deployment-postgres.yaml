@@ -25,13 +25,15 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "ah.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.postgres.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.postgres.securityContext | nindent 12 }}
           image: "postgres:{{ .Values.postgres.version }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["postgres"]
+          args: ["-c", "stats_temp_directory=/tmp"]
           env:
             - name: POSTGRES_DB
               value: {{ .Values.postgres.config.dbName | quote }}
@@ -39,6 +41,8 @@ spec:
               value: {{ .Values.postgres.config.dbUser | quote }}
             - name: POSTGRES_PASSWORD
               value: {{ .Values.postgres.config.dbPassword | quote }}
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           ports:
             - name: postgres-tcp
               containerPort: 5432
@@ -50,7 +54,6 @@ spec:
           readinessProbe:
             exec:
               command:
-                - CMD-SHELL
                 - pg_isready
                 - -U 
                 - ${POSTGRES_USER} 
@@ -62,10 +65,16 @@ spec:
           volumeMounts:
             - mountPath: "/var/lib/postgresql/data"
               name: storage
+              subPath: data
+            - mountPath: "/tmp"
+              name: tmp
       volumes:
         - name: storage
           persistentVolumeClaim:
             claimName: {{ include "ah.fullname" . }}-postgres
+        - name: tmp
+          emptyDir:
+            sizeLimit: 100Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
