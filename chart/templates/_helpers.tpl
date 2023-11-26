@@ -109,6 +109,8 @@ Create the name of the service account to use
 {{- if .Values.ingress.enabled }}
 - name: WEB_APP_URL
   value: "https://{{ .Values.ingress.hostname }}"
+- name: WEBHOOK_URL
+  value: "https://{{ .Values.ingress.hostname }}"
 {{- end }}
 {{- range $k, $v := .Values.app.credentials }}
 - name: {{ $k }}
