@@ -49,7 +49,9 @@ spec:
             - name: PORT
               value: "3000"
             - name: HOST
-              value: "localhost"
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
             {{- include "ah.envValues" . | nindent 12 }}
           ports:
             - name: ah-tcp
