@@ -23,8 +23,8 @@ spec:
       {{- with .Values.podAnnotations }}
       annotations:
         # used to detect config changes to trigger update
-        {{- $configApp := printf "%s-%s" .Values.app.config .Values.app.credentials }}
-        {{- $configIngress := printf "%s" .Values.ingress.hostname  }}
+        {{- $configApp := printf "%s-%s" $.Values.app.config $.Values.app.credentials }}
+        {{- $configIngress := printf "%s" $.Values.ingress.hostname  }}
         checksum/config: {{ printf "%s-%s" $configApp $configIngress | sha256sum }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
