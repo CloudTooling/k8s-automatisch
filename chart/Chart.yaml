@@ -1,9 +1,14 @@
 apiVersion: v2
 description: A Helm chart for deploying Automatisch
 name: automatisch
-version: 0.5.0
+version: 0.6.0
 # renovate: datasource=docker depName=automatischio/automatisch
 appVersion: "0.10.0"
+dependencies:
+  - name: postgresql
+    version: 15.2.5
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
 annotations:
   artifacthub.io/links: |
     - name: Application

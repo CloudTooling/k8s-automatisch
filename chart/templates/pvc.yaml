@@ -5,8 +5,11 @@ metadata:
   labels:
     {{- include "ah.labels" . | nindent 4 }}
 spec:
+  {{- if .Values.global.storageClass }}
+  storageClassName: {{ .Values.global.storageClass | quote }}
+  {{- end }}
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.global.accessMode }}
   resources:
     requests:
       storage: 10Gi

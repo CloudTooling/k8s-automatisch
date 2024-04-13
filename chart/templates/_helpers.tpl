@@ -122,7 +122,10 @@ Create the name of the service account to use
 - name: REDIS_HOST
   value: "{{ $fullname }}-redis"
 - name: POSTGRES_HOST
-  value: "{{ $fullname }}-postgres"
+  valueFrom:
+    secretKeyRef:
+      name: "{{ $fullname }}"
+      key: dbHost
 - name: POSTGRES_DATABASE
   valueFrom:
     secretKeyRef:

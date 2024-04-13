@@ -24,8 +24,9 @@ spec:
       annotations:
         # used to detect config changes to trigger update
         {{- $configApp := printf "%s-%s" $.Values.app.config $.Values.app.credentials }}
+        {{- $configPostgres := printf "%s" $.Values.postgres }}
         {{- $configIngress := printf "%s" $.Values.ingress.hostname  }}
-        checksum/config: {{ printf "%s-%s" $configApp $configIngress | sha256sum }}
+        checksum/config: {{ printf "%s-%s-%s" $configApp $configIngress $configPostgres | sha256sum }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:

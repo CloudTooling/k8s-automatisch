@@ -1,10 +1,12 @@
 # Default values for ah.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
+global:
+  storageClass:
+  accessMode: ReadWriteOnce
 replicaCount: 1
 # -- Update policy
-updateStrategy: 'RollingUpdate'
+updateStrategy: "RollingUpdate"
 image:
   repository: automatischio/automatisch
   pullPolicy: IfNotPresent
@@ -12,37 +14,35 @@ image:
   # renovate: datasource=docker depName=automatischio/automatisch
   tag: "0.10.0"
 
-postgres: 
+postgresql:
   enabled: true
-  # renovate: datasource=docker depName=redis
-  version: "14.5"
-  # @ignore, Configure pod security context
-  podSecurityContext:
-    runAsNonRoot: true
-    fsGroup: 999
-    fsGroupChangePolicy: "OnRootMismatch"
-  # @ignore, Configure security context
-  securityContext:
-    runAsUser: 999
-    runAsNonRoot: true
-    readOnlyRootFilesystem: false
-    allowPrivilegeEscalation: false
-    capabilities:
-      drop: ["ALL"]
-    seccompProfile:
-      type: "RuntimeDefault"
-  config:
-    dbName: automatisch
-    dbUser: automatischUser
-    dbPassword: 
-  resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
-
+  # see https://artifacthub.io/packages/helm/bitnami/postgresql?modal=values
+  auth:
+    database: automatisch
+    username: automatischUser
+    password:
+    postgresPassword:
+  primary:
+    persistence:
+      existingClaim: automatisch-postgresql-0
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  metrics:
+    enabled: false
+    resources:
+      requests:
+        cpu: 50m
+        memory: 32Mi
+        ephemeral-storage: 150Mi
+      limits:
+        cpu: 100m
+        memory: 64Mi
+        ephemeral-storage: 200Mi
 redis:
   enabled: true
   # renovate: datasource=docker depName=redis
@@ -56,10 +56,9 @@ redis:
       cpu: 100m
       memory: 128Mi
 
-
 imagePullSecrets: []
-nameOverride: ''
-fullnameOverride: ''
+nameOverride: ""
+fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -68,7 +67,7 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ''
+  name: ""
 
 podAnnotations: {}
 # @ignore, Configure pod security context
@@ -85,17 +84,18 @@ securityContext:
   allowPrivilegeEscalation: false
   # Hardening
   capabilities:
-    drop: ['ALL']
+    drop: ["ALL"]
   seccompProfile:
-    type: 'RuntimeDefault'
+    type: "RuntimeDefault"
 
 ingress:
   enabled: false
   className: ""
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  hostname: ''
+  hostname: ""
   tls: []
 
 app:
