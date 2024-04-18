@@ -1,6 +1,6 @@
 # automatisch
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![AppVersion: 0.10.0](https://img.shields.io/badge/AppVersion-0.10.0-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![AppVersion: 0.10.0](https://img.shields.io/badge/AppVersion-0.10.0-informational?style=flat-square)
 
 A Helm chart for deploying Automatisch
 
@@ -30,6 +30,7 @@ A Helm chart for deploying Automatisch
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | fullnameOverride | string | `""` |  |
+| global.accessMode | string | `"ReadWriteOnce"` |  |
 | global.storageClass | string | `nil` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"automatischio/automatisch"` |  |
@@ -42,6 +43,7 @@ A Helm chart for deploying Automatisch
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
+| persistence.volumeSize | string | `"3Gi"` |  |
 | podAnnotations | object | `{}` |  |
 | postgresql.auth.database | string | `"automatisch"` |  |
 | postgresql.auth.password | string | `nil` |  |
@@ -55,12 +57,14 @@ A Helm chart for deploying Automatisch
 | postgresql.metrics.resources.requests.cpu | string | `"50m"` |  |
 | postgresql.metrics.resources.requests.ephemeral-storage | string | `"150Mi"` |  |
 | postgresql.metrics.resources.requests.memory | string | `"32Mi"` |  |
-| postgresql.primary.persistence.existingClaim | string | `"automatisch-postgresql-0"` |  |
+| postgresql.persistence.volumeSize | string | `"5Gi"` |  |
+| postgresql.primary.persistence | object | `{}` |  |
 | postgresql.primary.resources.limits.cpu | string | `"200m"` |  |
 | postgresql.primary.resources.limits.memory | string | `"256Mi"` |  |
 | postgresql.primary.resources.requests.cpu | string | `"100m"` |  |
 | postgresql.primary.resources.requests.memory | string | `"128Mi"` |  |
 | redis.enabled | bool | `true` |  |
+| redis.persistence.volumeSize | string | `"3Gi"` |  |
 | redis.version | string | `"7.2.2"` |  |
 | replicaCount | int | `1` |  |
 | serviceAccount.annotations | object | `{}` |  |

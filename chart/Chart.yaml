@@ -1,7 +1,7 @@
 apiVersion: v2
 description: A Helm chart for deploying Automatisch
 name: automatisch
-version: 0.6.0
+version: 0.7.0
 # renovate: datasource=docker depName=automatischio/automatisch
 appVersion: "0.10.0"
 dependencies:

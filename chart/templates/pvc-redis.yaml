@@ -13,5 +13,5 @@ spec:
     - {{ .Values.global.accessMode }}
   resources:
     requests:
-      storage: 5Gi
+      storage: {{ .Values.redis.persistence.volumeSize }}
  {{- end }}
