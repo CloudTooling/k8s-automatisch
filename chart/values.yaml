@@ -12,7 +12,7 @@ image:
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   # renovate: datasource=docker depName=automatischio/automatisch
-  tag: "0.10.0"
+  tag: "0.11.0"
 
 postgresql:
   enabled: true
