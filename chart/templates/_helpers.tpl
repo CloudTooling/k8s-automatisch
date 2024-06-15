@@ -104,7 +104,7 @@ Create the name of the service account to use
 {{- $fullname := include "ah.fullname" . }}
 {{- range $k, $v := .Values.app.config }}
 - name: {{ $k }}
-  value: {{ $v }}
+  value: {{ $v | quote }}
 {{- end }}
 {{- if .Values.ingress.enabled }}
 - name: WEB_APP_URL

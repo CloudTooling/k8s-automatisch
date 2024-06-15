@@ -17,6 +17,23 @@ persistence:
   volumeSize: 3Gi
 postgresql:
   enabled: true
+  # @ignore, Configure pod security context
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+  # @ignore, Configure security context
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    # Hardening
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: "RuntimeDefault"
   # see https://artifacthub.io/packages/helm/bitnami/postgresql?modal=values
   auth:
     database: automatisch
@@ -49,6 +66,23 @@ postgresql:
         ephemeral-storage: 200Mi
 redis:
   enabled: true
+  # @ignore, Configure pod security context
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
+  # @ignore, Configure security context
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    # Hardening
+    capabilities:
+      drop: ["ALL"]
+    seccompProfile:
+      type: "RuntimeDefault"
   # renovate: datasource=docker depName=redis
   version: "7.2.2"
   # @ignore, Configure resource limits
@@ -78,15 +112,15 @@ serviceAccount:
 podAnnotations: {}
 # @ignore, Configure pod security context
 podSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
+  runAsNonRoot: false
+  runAsUser: 0
   runAsGroup: 3000
   fsGroup: 2000
 # @ignore, Configure security context
 securityContext:
-  runAsUser: 1000
-  runAsNonRoot: true
-  readOnlyRootFilesystem: true
+  runAsUser: 0
+  runAsNonRoot: false
+  readOnlyRootFilesystem: false
   allowPrivilegeEscalation: false
   # Hardening
   capabilities:
