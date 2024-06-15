@@ -20,11 +20,15 @@ A Helm chart for deploying Automatisch
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | app.config.APP_ENV | string | `"production"` | Automatisch Environment |
+| app.config.DISABLE_SEED_USER | bool | `true` | Don't use hardcoded initial admin user by default, see [here](https://automatisch.co/docs/advanced-configuration#disable-seed-user) for more information |
 | app.config.LOG_LEVEL | string | `"info"` | Can be used to configure log level such as error, warn, info, http, debug |
 | app.config.PROTOCOL | string | `"http"` | HTTP Protocol |
 | app.credentials.APP_SECRET_KEY | string | `nil` | Secret Key to authenticate the user |
 | app.credentials.ENCRYPTION_KEY | string | `nil` | Encryption Key to store credentials |
 | app.credentials.WEBHOOK_SECRET_KEY | string | `nil` | Webhook Secret Key to verify webhook requests |
+| app.seed | object | `{"admin":{"email":"admin@automatisch.io","fullName":"Admin User"}}` | Seed configuration, only done once! |
+| app.seed.admin | object | `{"email":"admin@automatisch.io","fullName":"Admin User"}` | admin user to configure during installation |
+| app.seed.admin.email | string | `"admin@automatisch.io"` | Admin User |
 | autoscaling.enabled | bool | `false` |  |
 | autoscaling.maxReplicas | int | `100` |  |
 | autoscaling.minReplicas | int | `1` |  |

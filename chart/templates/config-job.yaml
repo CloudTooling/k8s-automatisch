@@ -1,0 +1,74 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "ah.fullname" . }}-config
+  labels:
+    {{- include "ah.labels" . | nindent 4 }}
+    app.kubernetes.io/component: automatisch-config
+  annotations:
+    helm.sh/hook: "post-install,post-upgrade,post-rollback"
+    helm.sh/hook-delete-policy: "hook-succeeded,before-hook-creation"
+    helm.sh/hook-weight: "5"
+spec:
+  backoffLimit: 3
+  {{- /* kubernetes secret to hold user details */}}
+  {{- $secretName :=  printf "%s-config" ( include "ah.fullname" . ) }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: automatisch-config
+        {{- include "ah.labels" . | nindent 8 }}
+      annotations:
+        {{- $secretObj := (lookup "v1" "Secret" .Release.Namespace $secretName ) | default dict }}
+        {{- $secretData := (get $secretObj "data") | default dict }}
+        checksum/configuration: {{ ( printf "%s" $secretData | toJson ) | sha256sum }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "ah.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: Never
+      containers:
+        - name: init-config
+          image: alpine/k8s:1.30.0
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - |
+              function wait_for_it() {
+                host=${1}
+                prot=${2:-http}
+                port=${3:-3000}
+                code=${4:-200}
+                max_attempts=${5:-10}
+                opts=${6}
+                echo "Waiting for $host:$port"
+                no_proxy=$host,$no_proxy
+                attempt_counter=0
+                # shellcheck disable=SC2053
+                until [[ "$(curl --output /dev/null --silent --head -w '%{http_code}' --fail ${opts} ${prot}://${host}:${port})" == $code ]]; do
+                if [ ${attempt_counter} -eq ${max_attempts} ];then
+                    echo "Max attempts reached"
+                    curl -isv http://${host}:${port}
+                    exit 1
+                fi
+
+                echo -n '.'
+                attempt_counter=$((attempt_counter+1))
+                sleep 30
+                done
+               }
+              wait_for_it "{{ include "ah.fullname" . }}"
+
+              echo "Setting up users ..."
+              {{- $user := .Values.app.seed.admin }}
+              {{- $password :=  randAlphaNum 20 }}
+              curl -d '{"email":"{{ $user.email }}", "fullName":"{{ $user.fullName }}", "password": "{{ $password }}"}' -H "Content-Type: application/json" -X POST http://automatisch:3000/api/v1/installation/users
+
+              {{/* Save generated passwords in kubernetes secret */}}
+              echo "email={{ $user.email }}" > credentials.txt
+              echo "password={{ $password }}" >> credentials.txt
+              kubectl --namespace {{ .Release.Namespace }} create secret generic {{ .Release.Name }}-admin --from-env-file=credentials.txt

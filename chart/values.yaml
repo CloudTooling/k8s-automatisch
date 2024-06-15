@@ -139,6 +139,13 @@ ingress:
   tls: []
 
 app:
+  # -- Seed configuration, only done once!
+  seed:
+    # -- admin user to configure during installation
+    admin:
+      # -- Admin User
+      email: admin@automatisch.io
+      fullName: Admin User
   config:
     # -- Automatisch Environment
     APP_ENV: production
@@ -146,6 +153,8 @@ app:
     LOG_LEVEL: info
     # -- HTTP Protocol
     PROTOCOL: http
+    # -- Don't use hardcoded initial admin user by default, see [here](https://automatisch.co/docs/advanced-configuration#disable-seed-user) for more information
+    DISABLE_SEED_USER: true
   credentials:
     # -- Encryption Key to store credentials
     ENCRYPTION_KEY:
