@@ -7,3 +7,7 @@ Get the application URL by running these commands:
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
 {{- end }}
+{{- if .Values.app.config.DISABLE_SEED_USER }}
+To get the generated admin user credentials for user {{ .Values.app.seed.admin.fullName }} ({{ .Values.app.seed.admin.email }}), run the following command:
+  kubectl --namespace {{ .Release.Namespace }} get secret {{ include "ah.fullname" . }}-admin -o jsonpath="{.data.password}" | base64 --decode
+{{- end }}
