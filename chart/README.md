@@ -12,7 +12,7 @@ A Helm chart for deploying Automatisch
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 15.2.5 |
+| https://charts.bitnami.com/bitnami | postgresql | 15.5.0 |
 
 ## Values
 
@@ -34,7 +34,7 @@ A Helm chart for deploying Automatisch
 | global.storageClass | string | `nil` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"automatischio/automatisch"` |  |
-| image.tag | string | `"0.10.0"` |  |
+| image.tag | string | `"0.12.0"` |  |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` |  |
