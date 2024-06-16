@@ -1,3 +1,18 @@
+## [0.7.1](https://github.com/CloudTooling/k8s-automatisch/compare/v0.6.0...v0.7.1) (2024-06-16)
+
+
+### Bug Fixes
+
+* **Database:** Correcting default db config ([ae7d51e](https://github.com/CloudTooling/k8s-automatisch/commit/ae7d51e55327e31b8c66737ddb4c4621c714e892))
+* **Deployment:** Correcting deployment defaults ([cf8c1e9](https://github.com/CloudTooling/k8s-automatisch/commit/cf8c1e94a06a4b3e1b4de00fd93aecd58b018df2))
+
+
+### Features
+
+* **Config:** Allow configuration of volume sizes ([f79d477](https://github.com/CloudTooling/k8s-automatisch/commit/f79d4773428264c594044989afad497c92d2a95b))
+
+
+
 # 0.6.0 (2024-04-13)
 
 
