@@ -46,24 +46,10 @@ postgresql:
     persistence:
       # @ignored -- internal configuration
       existingClaim: automatisch-postgresql-0
-    resources:
-      limits:
-        cpu: 200m
-        memory: 256Mi
-      requests:
-        cpu: 100m
-        memory: 128Mi
+    resources: {}
   metrics:
     enabled: false
-    resources:
-      requests:
-        cpu: 50m
-        memory: 32Mi
-        ephemeral-storage: 150Mi
-      limits:
-        cpu: 100m
-        memory: 64Mi
-        ephemeral-storage: 200Mi
+    resources: {}
 redis:
   enabled: true
   # @ignore, Configure pod security context
@@ -86,13 +72,7 @@ redis:
   # renovate: datasource=docker depName=redis
   version: "7.2.2"
   # @ignore, Configure resource limits
-  resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
+  resources: {}
   persistence:
     volumeSize: 3Gi
 
@@ -163,13 +143,7 @@ app:
     # -- Secret Key to authenticate the user
     APP_SECRET_KEY:
 # @ignore, Configure resource limits
-resources:
-  limits:
-    cpu: 200m
-    memory: 256Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+resources: {}
 
 autoscaling:
   enabled: false
