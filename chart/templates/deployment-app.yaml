@@ -99,9 +99,14 @@ spec:
             - mountPath: "/automatisch/logs"
               name: logs
       volumes:
+        {{- if .Values.persistence.enabled }}
         - name: storage
           persistentVolumeClaim:
             claimName: {{ include "ah.fullname" . }}
+        {{- else }}
+        - name: storage
+          emptyDir: {}
+        {{- end }}
         - name: cache
           emptyDir:
             sizeLimit: 100Mi

@@ -14,6 +14,7 @@ image:
   # renovate: datasource=docker depName=automatischio/automatisch
   tag: "0.12.0"
 persistence:
+  enabled: true
   volumeSize: 3Gi
 postgresql:
   enabled: true
@@ -41,6 +42,7 @@ postgresql:
     password:
     postgresPassword:
   persistence:
+    enabled: true
     volumeSize: 5Gi
   primary:
     persistence:
@@ -74,6 +76,7 @@ redis:
   # @ignore, Configure resource limits
   resources: {}
   persistence:
+    enabled: true
     volumeSize: 3Gi
 
 imagePullSecrets: []
