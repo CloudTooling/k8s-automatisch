@@ -1,10 +1,42 @@
-postgresql:
-  config:
-    dbName: automatisch
-  auth:
-    password: admin
+
+global:
+  storageClass: longhorn-fast
+  accessMode: ReadWriteMany
+persistence:
+  volumeSize: 1Gi
+ingress:
+  enabled: true
+  hostname: automatisch-test.m13t.de
+  className: traefik
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: ca-issuer
+  tls:
+    secretName: automatisch-tls
 app:
   credentials:
     ENCRYPTION_KEY: "123"
     WEBHOOK_SECRET_KEY: "123"
     APP_SECRET_KEY: "123"
+postgresql:
+  auth:
+    dbName: automatisch
+    password: admin
+    postgresPassword: admin
+  primary:
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      # on setup only!
+      failureThreshold: 30
+      successThreshold: 1
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      # on setup only!
+      failureThreshold: 20
+      successThreshold: 1
