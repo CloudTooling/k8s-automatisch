@@ -52,9 +52,14 @@ spec:
             - mountPath: "/data"
               name: storage
       volumes:
+        {{- if .Values.redis.persistence.enabled }}
         - name: storage
           persistentVolumeClaim:
             claimName: {{ include "ah.fullname" . }}-redis
+        {{- else }}
+        - name: storage
+          emptyDir: {}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

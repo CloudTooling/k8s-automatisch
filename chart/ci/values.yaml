@@ -1,10 +1,36 @@
-postgresql:
-  config:
-    dbName: automatisch
-  auth:
-    password: admin
+persistence:
+  enabled: false
+  volumeSize: 1Gi
+replicaCount: 1
 app:
   credentials:
     ENCRYPTION_KEY: "123"
     WEBHOOK_SECRET_KEY: "123"
     APP_SECRET_KEY: "123"
+postgresql:
+  persistence:
+    enabled: false
+  auth:
+    dbName: automatisch
+    password: admin
+    postgresPassword: admin
+  primary:
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      # on setup only!
+      failureThreshold: 30
+      successThreshold: 1
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      # on setup only!
+      failureThreshold: 20
+      successThreshold: 1
+redis:
+  persistence:
+    enabled: false
