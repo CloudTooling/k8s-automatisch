@@ -1,18 +1,5 @@
-
-global:
-  storageClass: longhorn-fast
-  accessMode: ReadWriteMany
 persistence:
   volumeSize: 1Gi
-ingress:
-  enabled: true
-  hostname: automatisch-test.m13t.de
-  className: traefik
-  annotations:
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: ca-issuer
-  tls:
-    secretName: automatisch-tls
 app:
   credentials:
     ENCRYPTION_KEY: "123"
