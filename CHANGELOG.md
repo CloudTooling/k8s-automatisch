@@ -1,3 +1,17 @@
+# [](https://github.com/CloudTooling/k8s-automatisch/compare/v0.7.1...v) (2024-11-02)
+
+
+### Bug Fixes
+
+* Correcting renovate config ([8235c77](https://github.com/CloudTooling/k8s-automatisch/commit/8235c77cb5dbfa8bc542020605c18df56560a32a)), closes [#5](https://github.com/CloudTooling/k8s-automatisch/issues/5)
+
+
+### Features
+
+* **Config:** Seed users via API ([b583ede](https://github.com/CloudTooling/k8s-automatisch/commit/b583ede53e3ebb02a80ede1c8fd695511d48bacd)), closes [#OSS-1](https://github.com/CloudTooling/k8s-automatisch/issues/OSS-1)
+
+
+
 ## [0.7.1](https://github.com/CloudTooling/k8s-automatisch/compare/v0.6.0...v0.7.1) (2024-06-16)
 
 
