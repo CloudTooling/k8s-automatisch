@@ -52,9 +52,10 @@ jobs:
 
             -   name: Helm Package
                 run: |
+                    helm repo add bitnami https://charts.bitnami.com/bitnami
+                    helm dependency update chart/
                     chartVersion=$(cat chart/Chart.yaml | grep "version: " | sed -E -n "s/^version: \s*(.*)$/\1/p")
                     sed -i 's/version: '"$chartVersion"'/version: '"${{ github.event.inputs.releaseversion }}"'/g' chart/Chart.yaml
-                    helm dependency update chart/
                     helm-docs
                     helm package chart
                     git add .
