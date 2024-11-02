@@ -79,3 +79,15 @@ jobs:
                       fi
                       helm push "${pkg}" oci://ghcr.io/cloudtooling/helm-charts
                     done
+
+            -   name: Adding release notes
+                uses: TriPSs/conventional-changelog-action@v5
+                with:
+                    input-file: CHANGELOG.md
+                    github-token: ${{ steps.app-token.outputs.token }}
+                    version-file: target/config.json
+                    pre-release: true
+                    skip-bump: true
+                    skip-tag: true
+                    skip-on-empty: true
+                    tag-prefix: "v"
