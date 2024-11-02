@@ -59,6 +59,7 @@ jobs:
                     helm-docs
                     helm package chart
                     git add .
+                    git tag v${{ github.event.inputs.releaseversion }}
 
             -   name: Login to GitHub Container Registry
                 run: |
@@ -90,10 +91,12 @@ jobs:
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            -   name: Add SPI to github release
+            -   name: Add chart to github release
                 uses: actions/upload-release-asset@v1
                 with:
                     upload_url: ${{ steps.tag-and-release.outputs.upload_url }}
                     asset_path: automatisch-${{ github.event.inputs.releaseversion }}.tgz
                     asset_name: automatisch-chart.tgz
                     asset_content_type: application/zip
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
