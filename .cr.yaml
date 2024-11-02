@@ -1,1 +1,1 @@
-ReleaseNameTemplate: "{{ .Name }}-{{ .Version }}"
+ReleaseNameTemplate: "v{{ .Version }}"
