@@ -3,7 +3,7 @@ description: A Helm chart for deploying Automatisch
 name: automatisch
 version: 0.8.0
 # renovate: datasource=docker depName=automatischio/automatisch
-appVersion: "0.13.1"
+appVersion: "0.14.0"
 dependencies:
   - name: postgresql
     version: 16.1.0
