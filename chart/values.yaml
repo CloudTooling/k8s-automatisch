@@ -1,10 +1,10 @@
-# Default values for ah.
+# Default values for Automatisch chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
-  storageClass:
+  storageClass: ""
   accessMode: ReadWriteOnce
-replicaCount: 1
+replicaCount: 2
 # -- Update policy
 updateStrategy: "RollingUpdate"
 image:
@@ -14,6 +14,7 @@ image:
   # renovate: datasource=docker depName=automatischio/automatisch
   tag: "0.14.0"
 persistence:
+  enabled: true
   volumeSize: 3Gi
 postgresql:
   enabled: true
@@ -41,6 +42,7 @@ postgresql:
     password:
     postgresPassword:
   persistence:
+    enabled: true
     volumeSize: 5Gi
   primary:
     persistence:
@@ -74,6 +76,7 @@ redis:
   # @ignore, Configure resource limits
   resources: {}
   persistence:
+    enabled: true
     volumeSize: 3Gi
 
 imagePullSecrets: []

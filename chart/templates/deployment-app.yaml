@@ -49,9 +49,7 @@ spec:
             - name: PORT
               value: "3000"
             - name: HOST
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
+              value: "localhost"
             {{- include "ah.envValues" . | nindent 12 }}
           ports:
             - name: ah-tcp
@@ -101,9 +99,14 @@ spec:
             - mountPath: "/automatisch/logs"
               name: logs
       volumes:
+        {{- if .Values.persistence.enabled }}
         - name: storage
           persistentVolumeClaim:
             claimName: {{ include "ah.fullname" . }}
+        {{- else }}
+        - name: storage
+          emptyDir: {}
+        {{- end }}
         - name: cache
           emptyDir:
             sizeLimit: 100Mi
