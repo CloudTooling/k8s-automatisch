@@ -1,5 +1,18 @@
-# [](https://github.com/CloudTooling/k8s-automatisch/compare/v0.7.1...v) (2024-11-02)
+# [0.9.0](https://github.com/CloudTooling/k8s-automatisch/compare/v0.8.0...v0.9.0) (2024-11-22)
 
+## What's Changed
+* Seed users via API by @hypery2k in https://github.com/CloudTooling/k8s-automatisch/pull/23
+* chore(deps): update helm release postgresql to v15.5.9 by @renovate in https://github.com/CloudTooling/k8s-automatisch/pull/25
+* chore(deps): update helm release postgresql to v15.5.20 by @renovate in https://github.com/CloudTooling/k8s-automatisch/pull/26
+* chore(deps): update automatischio/automatisch docker tag to v0.13.1 by @renovate in https://github.com/CloudTooling/k8s-automatisch/pull/27
+* chore(deps): update helm release postgresql to v15.5.24 by @renovate in https://github.com/CloudTooling/k8s-automatisch/pull/28
+* chore(deps): update helm release postgresql to v15.5.34 by @renovate in https://github.com/CloudTooling/k8s-automatisch/pull/29
+* chore(deps): update automatischio/automatisch docker tag to v0.13.1 by @renovate in https://github.com/CloudTooling/k8s-automatisch/pull/31
+* chore(deps): update redis docker tag to v7.4.1 by @renovate in https://github.com/CloudTooling/k8s-automatisch/pull/32
+* chore(deps): update helm release postgresql to v15.5.38 by @renovate in https://github.com/CloudTooling/k8s-automatisch/pull/33
+* chore(deps): update helm release postgresql to v16 by @renovate in https://github.com/CloudTooling/k8s-automatisch/pull/34
+
+# [0.8.0](https://github.com/CloudTooling/k8s-automatisch/compare/v0.7.1...v0.8.0) (2024-11-02)
 
 ### Bug Fixes
 
@@ -26,8 +39,7 @@
 * **Config:** Allow configuration of volume sizes ([f79d477](https://github.com/CloudTooling/k8s-automatisch/commit/f79d4773428264c594044989afad497c92d2a95b))
 
 
-
-# 0.6.0 (2024-04-13)
+# [0.6.0](https://github.com/CloudTooling/k8s-automatisch/compare/37c7b8076bc954b307e7769d4c00ab6aafbd41d2...v0.6.0) (2024-04-13)
 
 
 ### Bug Fixes
@@ -47,6 +59,3 @@
 * **Config:** Restart pods on config changes ([f85bdbd](https://github.com/CloudTooling/k8s-automatisch/commit/f85bdbd40967c6c23b0f32f940cdf9bfac9e8d58))
 * **Deployment:** Adding update strategy param ([89a3586](https://github.com/CloudTooling/k8s-automatisch/commit/89a3586682c678fdfe5778ae1e23a6f53c393bae))
 * Initial chart release ([37c7b80](https://github.com/CloudTooling/k8s-automatisch/commit/37c7b8076bc954b307e7769d4c00ab6aafbd41d2))
-
-
-
