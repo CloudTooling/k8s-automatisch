@@ -11,7 +11,7 @@ Kubernetes Chart for [Automatisch](https://automatisch.io/)
 To install the Helm Chart use the [OCI Package Registry](https://github.com/orgs/CloudTooling/packages):
 
 ```
-helm install automatisch oci://ghcr.io/cloudtooling/helm-charts
+helm install my-automatisch oci://ghcr.io/cloudtooling/helm-charts/helm-charts
 ```
 
 Use values like this:
