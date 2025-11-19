@@ -70,7 +70,7 @@ redis:
     seccompProfile:
       type: "RuntimeDefault"
   # renovate: datasource=docker depName=redis
-  version: "8.2.3"
+  version: "8.4.0"
   # @ignore, Configure resource limits
   resources: {}
   persistence:
