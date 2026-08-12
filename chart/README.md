@@ -1,6 +1,6 @@
 # automatisch
 
-![Version: 0.10.1](https://img.shields.io/badge/Version-0.10.1-informational?style=flat-square) ![AppVersion: 0.15.0](https://img.shields.io/badge/AppVersion-0.15.0-informational?style=flat-square)
+![Version: 0.10.2](https://img.shields.io/badge/Version-0.10.2-informational?style=flat-square) ![AppVersion: 0.15.0](https://img.shields.io/badge/AppVersion-0.15.0-informational?style=flat-square)
 
 A Helm chart for deploying Automatisch
 
@@ -12,7 +12,7 @@ A Helm chart for deploying Automatisch
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 18.1.10 |
+| https://charts.bitnami.com/bitnami | postgresql | 18.8.8 |
 
 ## Values
 
@@ -61,7 +61,7 @@ A Helm chart for deploying Automatisch
 | postgresql.primary.resources | object | `{}` |  |
 | redis.enabled | bool | `true` |  |
 | redis.persistence.volumeSize | string | `"3Gi"` |  |
-| redis.version | string | `"8.4.0"` |  |
+| redis.version | string | `"8.10.0"` |  |
 | replicaCount | int | `1` |  |
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
